@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Only For You 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: Arial, sans-serif;
+}
+
+body{
+  height:100vh;
+  background: linear-gradient(135deg,#ff758c,#ff7eb3);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+/* Hearts */
+.heart{
+  position:absolute;
+  font-size:20px;
+  animation: float 6s linear infinite;
+  opacity:0.7;
+}
+@keyframes float{
+  from{ transform:translateY(110vh) scale(1); }
+  to{ transform:translateY(-10vh) scale(1.5); }
+}
+
+/* Card */
+.card{
+  background:rgba(255,255,255,0.95);
+  padding:35px;
+  border-radius:22px;
+  text-align:center;
+  box-shadow:0 30px 70px rgba(0,0,0,0.4);
+  max-width:360px;
+  width:90%;
+  animation: pop 0.8s ease;
+  z-index:2;
+}
+@keyframes pop{
+  from{ transform:scale(0.8); opacity:0; }
+  to{ transform:scale(1); opacity:1; }
+}
+
+h1{
+  color:#ff3e6c;
+  margin-bottom:15px;
+}
+
+p{ color:#444; }
+
+input{
+  width:100%;
+  padding:14px;
+  border-radius:30px;
+  border:2px solid #ff3e6c;
+  outline:none;
+  font-size:16px;
+  text-align:center;
+}
+
+button{
+  border:none;
+  padding:14px 26px;
+  margin-top:15px;
+  font-size:18px;
+  border-radius:50px;
+  cursor:pointer;
+  background:#ff3e6c;
+  color:white;
+}
+
+.hidden{ display:none; }
+
+/* Video */
+video{
+  width:90vw;
+  max-width:380px;
+  border-radius:22px;
+  box-shadow:0 35px 80px rgba(0,0,0,0.5);
+}
+</style>
+</head>
+
+<body>
+
+<!-- PASSWORD -->
+<div class="card" id="passScreen">
+  <h1>Secret Entry 🔐</h1>
+  <p>Sirf tumhare liye 💗</p><br>
+  <input type="password" id="pass" placeholder="Enter password 😏">
+  <button onclick="checkPass()">Unlock 💘</button>
+</div>
+
+<!-- QUESTION -->
+<div class="card hidden" id="qScreen">
+  <h1>Do you love me? 💗</h1>
+  <button id="yes">Yes 😍</button>
+  <button id="no">No 🙄</button>
+</div>
+
+<!-- MESSAGE -->
+<div class="card hidden" id="msgScreen">
+  <h1>I knew it 😘</h1>
+  <p>Forever mine 💖</p>
+</div>
+
+<!-- VIDEO -->
+<div class="hidden" id="videoScreen">
+  <video autoplay muted playsinline controls>
+    <source src="valentine.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div>
+
+<script>
+const PASSWORD = "im haritima paglu";
+
+function checkPass(){
+  if(document.getElementById("pass").value === PASSWORD){
+    passScreen.classList.add("hidden");
+    qScreen.classList.remove("hidden");
+  }else{
+    alert("Wrong password 😈 Sirf ek hi jaanti hai");
+  }
+}
+
+const yes = document.getElementById("yes");
+const no = document.getElementById("no");
+const qScreen = document.getElementById("qScreen");
+const msgScreen = document.getElementById("msgScreen");
+const videoScreen = document.getElementById("videoScreen");
+const passScreen = document.getElementById("passScreen");
+
+let scale = 1;
+
+no.addEventListener("mouseover", ()=>{
+  no.style.position="absolute";
+  no.style.left = Math.random()*70+"vw";
+  no.style.top = Math.random()*70+"vh";
+  scale += 0.15;
+  yes.style.transform = `scale(${scale})`;
+});
+
+yes.addEventListener("click", ()=>{
+  qScreen.classList.add("hidden");
+  msgScreen.classList.remove("hidden");
+  hearts();
+  setTimeout(()=>{
+    msgScreen.classList.add("hidden");
+    videoScreen.classList.remove("hidden");
+  },2000);
+});
+
+function hearts(){
+  for(let i=0;i<30;i++){
+    let h=document.createElement("div");
+    h.className="heart";
+    h.innerText="💖";
+    h.style.left=Math.random()*100+"vw";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),6000);
+  }
+}
+
+setInterval(()=>{
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerText="💘";
+  h.style.left=Math.random()*100+"vw";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),7000);
+},500);
+</script>
+
+</body>
+</html>
